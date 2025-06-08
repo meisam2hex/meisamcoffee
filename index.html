@@ -3,287 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کاتالوگ دستگاه‌های قهوه‌ساز صنعتی</title>
+    <title>Startop Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <img src="images/img.png" alt="لوگوی شرکت" class="header-logo"> {/* لوگو با نام جدید */}
-            <h1>کاتالوگ دستگاه‌های قهوه‌ساز صنعتی</h1>
-            <p class="subtitle">جدیدترین و پیشرفته‌ترین دستگاه‌های قهوه‌ساز برای کسب‌وکارهای شما</p>
-            <div class="contact-header">
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>021-12345678</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>09123456789</span>
-                </div>
+    <div class="dashboard-container">
+        <header class="main-header">
+            <div class="logo">
+                <img src="https://i.imgur.com/your-logo.png" alt="Startop Logo"> <span>Startop</span>
             </div>
+
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search in services, startups, an...">
+            </div>
+
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Club</a></li>
+                    <li><a href="#">About us</a></li>
+                </ul>
+            </nav>
+
+            <div class="user-profile">
+                <div class="profile-info">
+                    <span>Kanon Tihon</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <img src="https://i.imgur.com/user-avatar.png" alt="User Avatar" class="avatar"> </div>
         </header>
 
-        <div id="catalog-view" class="view-section active">
-            <div class="products-grid">
-                <div class="product-card" data-product-id="espresso-pro" role="button" tabindex="0">
-                    <div class="product-image">
-                        <img src="images/img (1).jpg" alt="اسپرسو ساز حرفه‌ای EP-2000"> {/* تصویر محصول با نام جدید */}
-                    </div>
-                    <div class="product-info">
-                        <h2 class="product-title">اسپرسو ساز حرفه‌ای EP-2000</h2>
-                        <p class="product-category">دستگاه اسپرسو تجاری</p>
-                        <div class="key-specs">
-                            <span class="spec-tag">2 گروه</span>
-                            <span class="spec-tag">15 بار فشار</span>
-                            <span class="spec-tag">فولاد ضد زنگ</span>
-                        </div>
-                        <button class="view-details-btn" aria-label="مشاهده جزئیات اسپرسو ساز حرفه‌ای EP-2000">مشاهده جزئیات</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-product-id="filter-master" role="button" tabindex="0">
-                    <div class="product-image">
-                        <img src="images/img (2).jpg" alt="قهوه ساز فیلتری FM-500"> {/* تصویر محصول با نام جدید */}
-                    </div>
-                    <div class="product-info">
-                        <h2 class="product-title">قهوه ساز فیلتری FM-500</h2>
-                        <p class="product-category">دستگاه قهوه فیلتری</p>
-                        <div class="key-specs">
-                            <span class="spec-tag">5 لیتر</span>
-                            <span class="spec-tag">نگهدارنده حرارت</span>
-                            <span class="spec-tag">اتوماتیک</span>
-                        </div>
-                        <button class="view-details-btn" aria-label="مشاهده جزئیات قهوه ساز فیلتری FM-500">مشاهده جزئیات</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-product-id="grinder-pro" role="button" tabindex="0">
-                    <div class="product-image">
-                        <img src="images/img (3).jpg" alt="آسیاب قهوه صنعتی GR-350"> {/* تصویر محصول با نام جدید */}
-                    </div>
-                    <div class="product-info">
-                        <h2 class="product-title">آسیاب قهوه صنعتی GR-350</h2>
-                        <p class="product-category">آسیاب تجاری</p>
-                        <div class="key-specs">
-                            <span class="spec-tag">350 وات</span>
-                            <span class="spec-tag">تیغه فولادی</span>
-                            <span class="spec-tag">مخزن 1 کیلو</span>
-                        </div>
-                        <button class="view-details-btn" aria-label="مشاهده جزئیات آسیاب قهوه صنعتی GR-350">مشاهده جزئیات</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-product-id="cappuccino-maker" role="button" tabindex="0">
-                    <div class="product-image">
-                        {/* برای این محصول از یکی از تصاویر موجود استفاده می‌کنیم، شما می‌توانید تصویر چهارم را قرار دهید */}
-                        <img src="images/img (1).jpg" alt="کاپوچینو ساز اتوماتیک CM-300">
-                    </div>
-                    <div class="product-info">
-                        <h2 class="product-title">کاپوچینو ساز اتوماتیک CM-300</h2>
-                        <p class="product-category">دستگاه کاپوچینو</p>
-                        <div class="key-specs">
-                            <span class="spec-tag">شیر فوم</span>
-                            <span class="spec-tag">دو مخزن</span>
-                            <span class="spec-tag">صفحه لمسی</span>
-                        </div>
-                        <button class="view-details-btn" aria-label="مشاهده جزئیات کاپوچینو ساز اتوماتیک CM-300">مشاهده جزئیات</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="address-section">
-                <h3>آدرس و موقعیت ما</h3>
-                <div class="address-content">
-                    <div class="address-info">
-                        <div class="address-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>تهران، خیابان ولیعصر، پلاک 123، طبقه 2</span>
-                        </div>
-                        <div class="address-item">
-                            <i class="fas fa-clock"></i>
-                            <span>ساعات کاری: شنبه تا پنج‌شنبه 9:00 - 18:00</span>
-                        </div>
-                    </div>
-                    <div class="map-container">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.031719515555!2d51.4112923152607!3d35.72515898018465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e011e3d49e6f5%3A0x8c8a0f5b3f3d1e9b!2sValiasr%20St%2C%20Tehran%2C%20Tehran%20Province%2C%20Iran!5e0!3m2!1sen!2sus!4v1622280000000!5m2!1sen!2sus"
-                            width="100%"
-                            height="300"
-                            style="border:0;"
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            title="نقشه موقعیت ما">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <div id="espresso-pro-detail" class="product-detail view-section">
-            <div class="detail-header">
-                <h2 class="detail-title">اسپرسو ساز حرفه‌ای EP-2000</h2>
-                <button class="close-btn" data-action="close-detail" aria-label="بستن جزئیات">بستن</button>
-            </div>
-
-            <div class="product-detail-body">
-                <div class="product-gallery">
-                    <div class="thumbnails-container">
-                        <img src="images/img (1).jpg" alt="نمای ۱ اسپرسو ساز EP-2000" class="thumbnail active" data-large-src="images/img (1).jpg">
-                        <img src="images/img (2).jpg" alt="نمای ۲ اسپرسو ساز EP-2000" class="thumbnail" data-large-src="images/img (2).jpg">
-                        <img src="images/img (3).jpg" alt="نمای ۳ اسپرسو ساز EP-2000" class="thumbnail" data-large-src="images/img (3).jpg">
-                        {/* در صورت نیاز تصاویر بندانگشتی بیشتری اضافه کنید و data-large-src را نیز تنظیم کنید */}
-                    </div>
-                    <div class="main-image-container">
-                        <img src="images/img (1).jpg" alt="اسپرسو ساز EP-2000 - نمای اصلی" id="main-espresso-pro-image">
-                    </div>
-                </div>
-
-                <div class="detail-content">
-                    <div class="spec-section">
-                        <h3>مشخصات فنی</h3>
-                        <div class="spec-item"><span class="spec-label">تعداد گروه:</span><span class="spec-value">2 گروه</span></div>
-                        <div class="spec-item"><span class="spec-label">فشار کاری:</span><span class="spec-value">15 بار</span></div>
-                        <div class="spec-item"><span class="spec-label">ظرفیت مخزن آب:</span><span class="spec-value">8 لیتر</span></div>
-                        <div class="spec-item"><span class="spec-label">توان مصرفی:</span><span class="spec-value">3200 وات</span></div>
-                        <div class="spec-item"><span class="spec-label">جنس بدنه:</span><span class="spec-value">فولاد ضد زنگ 304</span></div>
-                    </div>
-                    <div class="spec-section">
-                        <h3>ابعاد و وزن</h3>
-                        <div class="spec-item"><span class="spec-label">طول:</span><span class="spec-value">70 سانتی‌متر</span></div>
-                        <div class="spec-item"><span class="spec-label">عرض:</span><span class="spec-value">55 سانتی‌متر</span></div>
-                        <div class="spec-item"><span class="spec-label">ارتفاع:</span><span class="spec-value">45 سانتی‌متر</span></div>
-                        <div class="spec-item"><span class="spec-label">وزن:</span><span class="spec-value">85 کیلوگرم</span></div>
-                        <div class="spec-item"><span class="spec-label">گارانتی:</span><span class="spec-value">2 سال</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-buttons">
-                <h3>اطلاع از موجودی و قیمت</h3>
-                <div class="contact-btn-group">
-                    <a href="https://wa.me/989123456789" target="_blank" class="contact-btn whatsapp-btn"><i class="fab fa-whatsapp"></i> واتساپ</a>
-                    <a href="tel:02112345678" class="contact-btn phone-btn"><i class="fas fa-phone"></i> تماس تلفنی</a>
-                </div>
-            </div>
-        </div>
-
-        {/* جزئیات سایر محصولات بدون گالری (می‌توانید طبق الگوی بالا برای آنها نیز گالری اضافه کنید) */}
-        <div id="filter-master-detail" class="product-detail view-section">
-            <div class="detail-header">
-                <h2 class="detail-title">قهوه ساز فیلتری FM-500</h2>
-                <button class="close-btn" data-action="close-detail" aria-label="بستن جزئیات">بستن</button>
-            </div>
-            <div class="product-detail-body">
-                 {/* <div class="product-gallery"> ... گالری برای این محصول ... </div> */}
-                <div class="detail-content" style="width:100%;"> {/* اگر گالری نیست، عرض کامل */}
-                    <div class="spec-section">
-                        <h3>مشخصات فنی</h3>
-                        <div class="spec-item"><span class="spec-label">ظرفیت:</span><span class="spec-value">5 لیتر</span></div>
-                        {/* ... سایر مشخصات ... */}
-                         <div class="spec-item"><span class="spec-label">گارانتی:</span><span class="spec-value">18 ماه</span></div>
-                    </div>
-                    <div class="spec-section">
-                        <h3>ویژگی‌ها</h3>
-                         {/* ... سایر ویژگی‌ها ... */}
-                    </div>
-                </div>
-            </div>
-            <div class="contact-buttons">
-                <h3>اطلاع از موجودی و قیمت</h3>
-                <div class="contact-btn-group">
-                     <a href="https://wa.me/989123456789" target="_blank" class="contact-btn whatsapp-btn"><i class="fab fa-whatsapp"></i> واتساپ</a>
-                    <a href="tel:02112345678" class="contact-btn phone-btn"><i class="fas fa-phone"></i> تماس تلفنی</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="grinder-pro-detail" class="product-detail view-section">
-             <div class="detail-header">
-                <h2 class="detail-title">آسیاب قهوه صنعتی GR-350</h2>
-                <button class="close-btn" data-action="close-detail" aria-label="بستن جزئیات">بستن</button>
-            </div>
-             <div class="product-detail-body">
-                {/* <div class="product-gallery"> ... گالری برای این محصول ... </div> */}
-                <div class="detail-content" style="width:100%;"> {/* اگر گالری نیست، عرض کامل */}
-                     <div class="spec-section">
-                        <h3>مشخصات فنی</h3>
-                        {/* ... سایر مشخصات ... */}
-                        <div class="spec-item"><span class="spec-label">گارانتی:</span><span class="spec-value">1 سال</span></div>
-                    </div>
-                    <div class="spec-section">
-                        <h3>مشخصات فیزیکی</h3>
-                         {/* ... سایر مشخصات ... */}
-                    </div>
-                </div>
-            </div>
-            <div class="contact-buttons">
-                <h3>اطلاع از موجودی و قیمت</h3>
-                <div class="contact-btn-group">
-                    <a href="https://wa.me/989123456789" target="_blank" class="contact-btn whatsapp-btn"><i class="fab fa-whatsapp"></i> واتساپ</a>
-                    <a href="tel:02112345678" class="contact-btn phone-btn"><i class="fas fa-phone"></i> تماس تلفنی</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="cappuccino-maker-detail" class="product-detail view-section">
-            <div class="detail-header">
-                <h2 class="detail-title">کاپوچینو ساز اتوماتیک CM-300</h2>
-                <button class="close-btn" data-action="close-detail" aria-label="بستن جزئیات">بستن</button>
-            </div>
-            <div class="product-detail-body">
-                {/* <div class="product-gallery"> ... گالری برای این محصول ... </div> */}
-                <div class="detail-content" style="width:100%;"> {/* اگر گالری نیست، عرض کامل */}
-                    <div class="spec-section">
-                        <h3>مشخصات فنی</h3>
-                        {/* ... سایر مشخصات ... */}
-                        <div class="spec-item"><span class="spec-label">گارانتی:</span><span class="spec-value">2 سال</span></div>
-                    </div>
-                    <div class="spec-section">
-                        <h3>ویژگی‌های پیشرفته</h3>
-                        {/* ... سایر ویژگی‌ها ... */}
-                    </div>
-                </div>
-            </div>
-            <div class="contact-buttons">
-                <h3>اطلاع از موجودی و قیمت</h3>
-                <div class="contact-btn-group">
-                    <a href="https://wa.me/989123456789" target="_blank" class="contact-btn whatsapp-btn"><i class="fab fa-whatsapp"></i> واتساپ</a>
-                    <a href="tel:02112345678" class="contact-btn phone-btn"><i class="fas fa-phone"></i> تماس تلفنی</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="back-to-catalog" id="back-section">
-            <button class="back-btn" id="backToCatalogBtn">بازگشت به کاتالوگ</button>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>ارتباط با ما</h4>
-                <div class="footer-contact">
-                    <div class="contact-item"><i class="fas fa-phone"></i><span>021-12345678</span></div>
-                    <div class="contact-item"><i class="fab fa-whatsapp"></i><span>09123456789</span></div>
-                    <div class="contact-item"><i class="fas fa-envelope"></i><span>info@coffeemachines.ir</span></div>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4>شبکه‌های اجتماعی</h4>
-                <div class="social-links">
-                    <a href="https://t.me/yourusername" target="_blank" class="social-btn telegram"><i class="fab fa-telegram"></i> تلگرام</a>
-                    <a href="https://instagram.com/yourusername" target="_blank" class="social-btn instagram"><i class="fab fa-instagram"></i> اینستاگرام</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© <span id="current-year">2024</span> تمامی حقوق محفوظ است - دستگاه‌های قهوه‌ساز صنعتی</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
