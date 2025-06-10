@@ -1,119 +1,121 @@
-/* General Body Styles */
+/* General Body and Font Styling */
 body {
-    font-family: Arial, sans-serif; /* یک فونت مناسب انتخاب کنید */
-    background-color: #f0f2f5; /* رنگ پس‌زمینه کلی صفحه */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: #f5f5f4; /* stone-100 */
 }
 
-/* Main Container */
-.dashboard-container {
-    width: 1440px; /* عرض تقریبی طرح اصلی */
+/* Styling for form sections */
+.form-section {
     background-color: #ffffff;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border: 1px solid #e7e5e4; /* stone-200 */
 }
 
-/* Header Styles */
-.main-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 20px;
-}
-
-/* Logo */
-.main-header .logo {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    font-size: 24px;
-}
-
-.main-header .logo img {
-    width: 32px; /* اندازه لوگو */
-    height: 32px;
-    margin-left: 10px; /* فاصله از متن */
-}
-
-/* Search Bar */
-.search-bar {
-    display: flex;
-    align-items: center;
-    background-color: #f8f9fa;
-    padding: 10px 15px;
-    border-radius: 25px;
-    width: 300px;
-}
-
-.search-bar i {
-    color: #aaa;
-    margin-left: 10px;
-}
-
-.search-bar input {
-    border: none;
-    outline: none;
-    background: transparent;
+/* General input field styling */
+.form-input {
     width: 100%;
-    font-size: 14px;
+    padding: 0.75rem;
+    border: 1px solid #d6d3d1; /* stone-300 */
+    border-radius: 0.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #fafaf9; /* stone-50 */
 }
 
-/* Main Navigation */
-.main-nav ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
+.form-input:focus {
+    outline: none;
+    border-color: #a8a29e; /* stone-400 */
+    box-shadow: 0 0 0 2px #e7e5e4; /* stone-200 */
 }
 
-.main-nav ul li {
-    margin: 0 20px;
+/* General button styling */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-align: center;
 }
 
-.main-nav ul li a {
-    text-decoration: none;
-    color: #555;
-    font-size: 16px;
-    padding: 5px 10px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.main-nav ul li a.active,
-.main-nav ul li a:hover {
-    background-color: #0052cc; /* رنگ آبی برای لینک فعال */
+.btn-primary {
+    background-color: #78716c; /* stone-500 */
     color: #ffffff;
 }
 
-/* User Profile */
-.user-profile {
-    display: flex;
-    align-items: center;
+.btn-primary:hover {
+    background-color: #57534e; /* stone-600 */
 }
 
-.user-profile .profile-info {
-    display: flex;
-    align-items: center;
-    margin-left: 15px;
+.btn-secondary {
+    background-color: #e7e5e4; /* stone-200 */
+    color: #57534e; /* stone-600 */
 }
 
-.user-profile .profile-info span {
-    font-weight: bold;
+.btn-secondary:hover {
+    background-color: #d6d3d1; /* stone-300 */
 }
 
-.user-profile .profile-info i {
-    font-size: 12px;
-    margin-right: 8px;
+.btn-danger {
+    background-color: #fca5a5; /* red-300 */
+    color: #991b1b; /* red-800 */
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
 }
 
-.user-profile .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid #ddd;
+.btn-danger:hover {
+    background-color: #f87171; /* red-400 */
+}
+
+/* Styling for the invoice preview area */
+#invoice-preview {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    border: 1px solid #e7e5e4; /* stone-200 */
+    color: #1c1917; /* stone-900 */
+}
+
+#invoice-preview table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#invoice-preview th, 
+#invoice-preview td {
+    padding: 0.75rem;
+    text-align: right;
+    border-bottom: 1px solid #e7e5e4; /* stone-200 */
+}
+
+#invoice-preview th {
+    background-color: #f5f5f4; /* stone-100 */
+    font-weight: 500;
+}
+
+/* Print-specific styles */
+@media print {
+    body {
+        background-color: #ffffff;
+    }
+
+    #form-container, #actions-container {
+        display: none;
+    }
+
+    #preview-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    #invoice-preview {
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+    }
 }
