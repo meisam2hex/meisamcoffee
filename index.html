@@ -174,7 +174,6 @@
                                 </tr>
                             </thead>
                             <tbody id="preview-items-body">
-                                <!-- Items will be dynamically inserted here -->
                             </tbody>
                         </table>
                     </div>
@@ -261,7 +260,6 @@
                     <div class="form-section">
                         <h3 class="font-bold text-lg mb-4 text-stone-700">کالاها و خدمات</h3>
                         <div id="items-container" class="space-y-4">
-                            <!-- Item rows will be dynamically inserted here -->
                         </div>
                         <button type="button" id="add-item-btn" class="btn btn-secondary mt-4">افزودن ردیف +</button>
                     </div>
@@ -298,60 +296,66 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('invoice-form');
-            const itemsContainer = document.getElementById('items-container');
-            const addItemBtn = document.getElementById('add-item-btn');
-            let itemCounter = 0;
+        // By placing the script at the end of the body, we ensure all HTML elements are loaded before the script runs.
+        // This removes the need for a 'DOMContentLoaded' event listener and makes the code more robust.
+        
+        const form = document.getElementById('invoice-form');
+        const itemsContainer = document.getElementById('items-container');
+        const addItemBtn = document.getElementById('add-item-btn');
+        let itemCounter = 0;
 
-            const formatNumber = (num) => new Intl.NumberFormat('fa-IR').format(num);
+        const formatNumber = (num) => new Intl.NumberFormat('fa-IR').format(num);
 
-            const numberToWords = (num) => {
-                const ones = ['', 'یک', 'دو', 'سه', 'چهار', 'پنج', 'شش', 'هفت', 'هشت', 'نه'];
-                const teens = ['ده', 'یازده', 'دوازده', 'سیزده', 'چهارده', 'پانزده', 'شانزده', 'هفده', 'هجده', 'نوزده'];
-                const tens = ['', 'ده', 'بیست', 'سی', 'چهل', 'پنجاه', 'شصت', 'هفتاد', 'هشتاد', 'نود'];
-                const hundreds = ['', 'یکصد', 'دویست', 'سیصد', 'چهارصد', 'پانصد', 'ششصد', 'هفتصد', 'هشتصد', 'نهصد'];
-                const thousands = ['', 'هزار', 'میلیون', 'میلیارد'];
+        const numberToWords = (num) => {
+            if (num === null || num === undefined) return '';
+            num = Math.round(num);
+            const ones = ['', 'یک', 'دو', 'سه', 'چهار', 'پنج', 'شش', 'هفت', 'هشت', 'نه'];
+            const teens = ['ده', 'یازده', 'دوازده', 'سیزده', 'چهارده', 'پانزده', 'شانزده', 'هفده', 'هجده', 'نوزده'];
+            const tens = ['', 'ده', 'بیست', 'سی', 'چهل', 'پنجاه', 'شصت', 'هفتاد', 'هشتاد', 'نود'];
+            const hundreds = ['', 'یکصد', 'دویست', 'سیصد', 'چهارصد', 'پانصد', 'ششصد', 'هفتصد', 'هشتصد', 'نهصد'];
+            const thousands = ['', 'هزار', 'میلیون', 'میلیارد'];
 
-                function convertLessThanOneThousand(n) {
-                    if (n === 0) return '';
-                    if (n < 10) return ones[n];
-                    if (n < 20) return teens[n - 10];
-                    if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' و ' + ones[n % 10] : '');
-                    return hundreds[Math.floor(n / 100)] + (n % 100 !== 0 ? ' و ' + convertLessThanOneThousand(n % 100) : '');
+            function convertLessThanOneThousand(n) {
+                if (n === 0) return '';
+                if (n < 10) return ones[n];
+                if (n < 20) return teens[n - 10];
+                if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' و ' + ones[n % 10] : '');
+                return hundreds[Math.floor(n / 100)] + (n % 100 !== 0 ? ' و ' + convertLessThanOneThousand(n % 100) : '');
+            }
+
+            if (num === 0) return 'صفر';
+            let word = '';
+            let i = 0;
+            while (num > 0) {
+                if (num % 1000 !== 0) {
+                    word = convertLessThanOneThousand(num % 1000) + ' ' + thousands[i] + (word ? ' و ' : '') + word;
                 }
+                num = Math.floor(num / 1000);
+                i++;
+            }
+            return word.trim();
+        };
 
-                if (num === 0) return 'صفر';
-                let word = '';
-                let i = 0;
-                while (num > 0) {
-                    if (num % 1000 !== 0) {
-                        word = convertLessThanOneThousand(num % 1000) + ' ' + thousands[i] + (word ? ' و ' : '') + word;
-                    }
-                    num = Math.floor(num / 1000);
-                    i++;
-                }
-                return word.trim();
-            };
+        const updatePreview = () => {
+            // Seller and Customer Info
+            document.getElementById('preview-seller-name').textContent = document.getElementById('seller-name').value || '[نام شرکت]';
+            document.getElementById('preview-seller-address').textContent = document.getElementById('seller-address').value || '[آدرس]';
+            document.getElementById('preview-seller-phone').textContent = document.getElementById('seller-phone').value || '[تلفن]';
+            document.getElementById('preview-seller-email').textContent = document.getElementById('seller-email').value || '[ایمیل]';
+            document.getElementById('preview-seller-reg').textContent = document.getElementById('seller-reg').value || '[شماره ثبت]';
+            
+            document.getElementById('preview-customer-name').textContent = document.getElementById('customer-name').value || '[نام مشتری]';
+            document.getElementById('preview-customer-address').textContent = document.getElementById('customer-address').value || '[آدرس]';
+            document.getElementById('preview-customer-phone').textContent = document.getElementById('customer-phone').value || '[تلفن]';
+            document.getElementById('preview-customer-id').textContent = document.getElementById('customer-id').value || '[کد اقتصادی]';
 
-            const updatePreview = () => {
-                // Seller and Customer Info
-                document.getElementById('preview-seller-name').textContent = document.getElementById('seller-name').value || '[نام شرکت]';
-                document.getElementById('preview-seller-address').textContent = document.getElementById('seller-address').value || '[آدرس]';
-                document.getElementById('preview-seller-phone').textContent = document.getElementById('seller-phone').value || '[تلفن]';
-                document.getElementById('preview-seller-email').textContent = document.getElementById('seller-email').value || '[ایمیل]';
-                document.getElementById('preview-seller-reg').textContent = document.getElementById('seller-reg').value || '[شماره ثبت]';
-                
-                document.getElementById('preview-customer-name').textContent = document.getElementById('customer-name').value || '[نام مشتری]';
-                document.getElementById('preview-customer-address').textContent = document.getElementById('customer-address').value || '[آدرس]';
-                document.getElementById('preview-customer-phone').textContent = document.getElementById('customer-phone').value || '[تلفن]';
-                document.getElementById('preview-customer-id').textContent = document.getElementById('customer-id').value || '[کد اقتصادی]';
-
-                // Invoice and Device Info
-                document.getElementById('preview-invoice-number').textContent = document.getElementById('invoice-number').value || '[شماره]';
-                const dateValue = document.getElementById('invoice-date').value;
-                if (dateValue) {
-                    const date = new Date(dateValue);
-                    document.getElementById('preview-invoice-date').textContent = new Intl.DateTimeFormat('fa-IR').format(date);
-                } else {
-                     document.getElementById('preview-invoice-date').tex
+            // Invoice and Device Info
+            document.getElementById('preview-invoice-number').textContent = document.getElementById('invoice-number').value || '[شماره]';
+            const dateValue = document.getElementById('invoice-date').value;
+            if (dateValue) {
+                const date = new Date(dateValue);
+                document.getElementById('preview-invoice-date').textContent = new Intl.DateTimeFormat('fa-IR').format(date);
+            } else {
+                 document.getElementById('preview-invoice-date').textContent = '[تاریخ]';
+            }
+            document.getElementById('preview-device-brand
