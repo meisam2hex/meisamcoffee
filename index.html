@@ -3,223 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کافی‌ساز برتر - فروش دستگاه‌های قهوه‌ساز صنعتی</title>
-    
-    <!-- Tailwind CSS CDN -->
+    <title>مولد فاکتور سرویس قهوه ساز</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Custom Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral -->
+    <!-- Application Structure Plan: A two-column layout. The right column contains an interactive form for inputting all invoice data (seller, customer, device, and dynamic line items). The left column shows a live, real-time preview of the invoice that updates as the user types. This structure was chosen for its high usability in generator-style applications, providing immediate feedback and separating the data entry task from the final output visualization, which enhances user experience and accuracy. -->
+    <!-- Visualization & Content Choices: Report Info -> Goal -> Presentation -> Interaction -> Justification -> Library/Method. All data points from the invoice are captured using standard HTML form inputs. The core interaction is the dynamic adding/removing of service/part line items, with automatic real-time calculation of totals, managed by vanilla JS. This is the most intuitive way to handle variable-length lists. The final output is a clean HTML/CSS preview, designed to be printed. This avoids static report formats and creates a useful tool. NO SVG/Mermaid confirmed. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            direction: rtl; /* Right-to-left direction for Persian */
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #f5f5f4; /* stone-100 */
         }
-        /* Glassmorphism effect */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .form-section {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            border: 1px solid #e7e5e4; /* stone-200 */
         }
-        .main-bg {
-            background-color: #0c143c;
-            background-image:
-                radial-gradient(at 20% 20%, hsla(212,80%,30%,.3) 0px, transparent 50%),
-                radial-gradient(at 80% 10%, hsla(289,80%,40%,.2) 0px, transparent 50%),
-                radial-gradient(at 80% 80%, hsla(190,80%,45%,.3) 0px, transparent 50%);
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d6d3d1; /* stone-300 */
+            border-radius: 0.5rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: #fafaf9; /* stone-50 */
         }
-        /* Custom scrollbar for better aesthetics */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .form-input:focus {
+            outline: none;
+            border-color: #a8a29e; /* stone-400 */
+            box-shadow: 0 0 0 2px #e7e5e4; /* stone-200 */
         }
-        ::-webkit-scrollbar-track {
-            background: #0c143c;
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #4a5568;
-            border-radius: 10px;
+        .btn-primary {
+            background-color: #78716c; /* stone-500 */
+            color: #ffffff;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #718096;
+        .btn-primary:hover {
+            background-color: #57534e; /* stone-600 */
+        }
+        .btn-secondary {
+            background-color: #e7e5e4; /* stone-200 */
+            color: #57534e; /* stone-600 */
+        }
+        .btn-secondary:hover {
+            background-color: #d6d3d1; /* stone-300 */
+        }
+        .btn-danger {
+            background-color: #fca5a5; /* red-300 */
+            color: #991b1b; /* red-800 */
+            font-size: 0.875rem;
+            padding: 0.25rem 0.5rem;
+        }
+        .btn-danger:hover {
+            background-color: #f87171; /* red-400 */
+        }
+        #invoice-preview {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border: 1px solid #e7e5e4; /* stone-200 */
+            color: #1c1917; /* stone-900 */
+        }
+        #invoice-preview table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #invoice-preview th, #invoice-preview td {
+            padding: 0.75rem;
+            text-align: right;
+            border-bottom: 1px solid #e7e5e4; /* stone-200 */
+        }
+        #invoice-preview th {
+            background-color: #f5f5f4; /* stone-100 */
+            font-weight: 500;
+        }
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            #form-container, #actions-container {
+                display: none;
+            }
+            #preview-container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            #invoice-preview {
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+            }
         }
     </style>
 </head>
-<body class="main-bg text-white overflow-x-hidden">
+<body class="p-4 sm:p-6 lg:p-8">
 
-    <div class="flex flex-col lg:flex-row min-h-screen p-4 gap-4">
+    <div class="max-w-screen-2xl mx-auto">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-stone-700">مولد فاکتور سرویس قهوه ساز</h1>
+            <p class="text-stone-500 mt-2">اطلاعات را در فرم سمت راست وارد کنید و پیش‌نمایش زنده را در سمت چپ ببینید.</p>
+        </header>
 
-        <!-- ===== Left Sidebar ===== -->
-        <aside class="w-full lg:w-1/5 xl:w-1/6 space-y-4 hidden lg:block">
-            <div class="glass-card p-6 rounded-2xl h-full">
-                <div class="flex items-center gap-3 mb-8">
-                    <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-5.22-6.22l10.44 0M19.071 12a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"></path></svg>
-                    <h2 class="text-xl font-bold">کافی‌ساز برتر</h2>
-                </div>
-                <nav>
-                    <ul>
-                        <li class="mb-4">
-                            <a href="#" class="flex items-center gap-3 p-3 rounded-lg bg-white/10 text-cyan-300 font-semibold">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                                <span>معرفی</span>
-                            </a>
-                        </li>
-                        <li class="mb-4">
-                            <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                                <span>ویژگی‌ها</span>
-                            </a>
-                        </li>
-                        <li class="mb-4">
-                            <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                <span>مدل‌ها</span>
-                            </a>
-                        </li>
-                        <li class="mb-4">
-                            <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                                <span>پشتیبانی</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-
-        <!-- ===== Main Content ===== -->
-        <main class="w-full lg:w-4/5 xl:w-5/6 flex flex-col gap-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
-            <!-- Header -->
-            <header class="glass-card flex-shrink-0 p-4 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="relative w-full md:w-1/2">
-                    <input type="text" placeholder="جستجوی مدل، برند، ویژگی..." class="w-full bg-black/20 border border-white/10 rounded-full py-2.5 pr-12 pl-4 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition">
-                    <svg class="w-5 h-5 absolute top-1/2 right-4 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </div>
-                <div class="flex items-center gap-4 w-full md:w-auto">
-                    <nav class="hidden md:flex items-center gap-6 text-gray-300">
-                        <a href="#" class="hover:text-white transition-colors">خانه</a>
-                        <a href="#" class="hover:text-white transition-colors">بلاگ</a>
-                        <a href="#" class="hover:text-white transition-colors">محصولات</a>
-                        <a href="#" class="hover:text-white transition-colors">درباره ما</a>
-                    </nav>
-                    <div class="flex items-center gap-3 border-r border-white/10 pr-4">
-                        <span class="font-semibold">کاربر تست</span>
-                        <img src="https://placehold.co/40x40/7e22ce/ffffff?text=U" alt="تصویر پروفایل کاربر" class="rounded-full w-10 h-10 border-2 border-cyan-400">
-                    </div>
-                </div>
-            </header>
-
-            <!-- Main Grid -->
-            <div class="flex-grow grid grid-cols-1 xl:grid-cols-3 gap-4">
-                
-                <!-- Center Column -->
-                <div class="xl:col-span-2 space-y-4">
-                    <!-- Hero Section -->
-                    <div class="glass-card rounded-2xl p-8 bg-cover bg-center" style="background-image: url('https://placehold.co/1000x400/0c143c/ffffff?text=%D8%AA%D8%B5%D9%88%DB%8C%D8%B1+%D9%82%D9%87%D9%88%D9%87%E2%80%8C%D8%B3%D8%A7%D8%B2');">
-                        <div class="relative z-10">
-                            <div class="flex gap-2 mb-4">
-                                <span class="bg-white/10 px-3 py-1 text-sm rounded-full">#قهوه_ساز_صنعتی</span>
-                                <span class="bg-white/10 px-3 py-1 text-sm rounded-full">#تجهیزات_کافه</span>
-                            </div>
-                            <h1 class="text-4xl md:text-5xl font-extrabold !leading-tight">
-                                پتانسیل کافه خود را با <br> <span class="text-cyan-400">دستگاه‌های ما</span> شکوفا کنید.
-                            </h1>
-                            <p class="mt-4 max-w-lg text-gray-300">
-                                پیشرفته‌ترین دستگاه‌های قهوه‌ساز صنعتی با دوام بالا و کارایی بی‌نظیر برای موفقیت کسب و کار شما.
-                            </p>
-                            <button class="mt-6 flex items-center gap-2 bg-cyan-500 hover:bg-cyan-600 transition-colors text-white font-bold py-3 px-6 rounded-full">
-                                <span>مشاهده مدل‌ها</span>
-                                <svg class="w-5 h-5 transform -rotate-135" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7-7 7"></path></svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Bottom Row Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="glass-card rounded-2xl p-6">
-                            <h3 class="font-bold text-lg mb-2">بهترین سرمایه‌گذاری برای آینده</h3>
-                            <p class="text-sm text-gray-300 mb-4">با انتخاب دستگاه‌های ما، کیفیت و سرعت را به مشتریان خود هدیه دهید.</p>
-                             <div class="flex -space-x-2 overflow-hidden">
-                                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-gray-800" src="https://placehold.co/32x32/ffc107/ffffff?text=A" alt="">
-                                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-gray-800" src="https://placehold.co/32x32/f44336/ffffff?text=B" alt="">
-                                <img class="inline-block h-8 w-8 rounded-full ring-2 ring-gray-800" src="https://placehold.co/32x32/4caf50/ffffff?text=C" alt="">
-                            </div>
-                        </div>
-                        <div class="glass-card rounded-2xl p-6">
-                            <h3 class="font-bold text-lg mb-2">یک ویژگی کلیدی: دوام بالا</h3>
-                            <p class="text-sm text-gray-300 mb-4">استفاده از بهترین قطعات برای تضمین عمر طولانی و عملکرد بدون وقفه.</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-colors">درخواست دمو</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Column -->
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl p-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-bold">آمار ماهانه</h3>
-                            <span class="text-sm text-gray-400">خرداد ۱۴۰۳</span>
-                        </div>
-                        <div class="flex items-end gap-6">
-                            <div class="text-center">
-                                <p class="text-3xl font-bold text-cyan-400">120</p>
-                                <p class="text-sm text-gray-400">دستگاه فروش رفته</p>
-                            </div>
-                             <div class="text-center">
-                                <p class="text-3xl font-bold">2.3M</p>
-                                <p class="text-sm text-gray-400">فنجان قهوه</p>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="glass-card rounded-2xl p-6 flex items-center justify-between">
+            <!-- Preview Column -->
+            <div id="preview-container" class="lg:col-span-1">
+                <div id="invoice-preview" class="sticky top-8">
+                    <h2 class="text-2xl font-bold text-center mb-6">فاکتور فروش کالا و خدمات</h2>
+                    
+                    <div class="grid grid-cols-2 gap-8 mb-6">
                         <div>
-                            <p class="text-cyan-400 font-semibold">200+</p>
-                            <p>کافه و رستوران مجهز شده</p>
+                            <h3 class="font-bold text-stone-600 mb-2">اطلاعات فروشنده:</h3>
+                            <p id="preview-seller-name">[نام شرکت / تعمیرکار]</p>
+                            <p id="preview-seller-address">[آدرس]</p>
+                            <p id="preview-seller-phone">[تلفن]</p>
+                            <p id="preview-seller-email">[ایمیل / وبسایت]</p>
+                            <p id="preview-seller-reg">[شماره ثبت]</p>
                         </div>
-                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                    </div>
-                    <div class="glass-card rounded-2xl p-6 flex items-center justify-between">
-                        <div>
-                            <p class="font-semibold">انجمن باریستاها</p>
-                            <p class="text-sm text-gray-400">به جامعه حرفه‌ای‌ها بپیوندید</p>
-                        </div>
-                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                    </div>
-                    <div class="glass-card rounded-2xl p-6">
-                        <h3 class="font-bold mb-3">مدیران فروش</h3>
-                        <div class="flex items-center gap-4">
-                            <img src="https://placehold.co/48x48/8e54e9/ffffff?text=M1" alt="Manager 1" class="w-12 h-12 rounded-full">
-                            <img src="https://placehold.co/48x48/f9d423/ffffff?text=M2" alt="Manager 2" class="w-12 h-12 rounded-full">
-                            <div class="w-12 h-12 rounded-full bg-gray-600 flex items-center justify-center font-bold">+3</div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-stone-600 mb-2">مشخصات فاکتور:</h3>
+                            <p>شماره: <span id="preview-invoice-number">[شماره فاکتور]</span></p>
+                            <p>تاریخ: <span id="preview-invoice-date">[تاریخ روز]</span></p>
                         </div>
                     </div>
-                </div>
 
+                    <hr class="my-6 border-stone-200">
+
+                    <div class="grid grid-cols-2 gap-8 mb-6">
+                        <div>
+                            <h3 class="font-bold text-stone-600 mb-2">مشخصات خریدار:</h3>
+                            <p id="preview-customer-name">[نام مشتری]</p>
+                            <p id="preview-customer-address">[آدرس]</p>
+                            <p id="preview-customer-phone">[تلفن]</p>
+                            <p id="preview-customer-id">[کد اقتصادی]</p>
+                        </div>
+                         <div>
+                            <h3 class="font-bold text-stone-600 mb-2">مشخصات دستگاه:</h3>
+                            <p>نوع: <span id="preview-device-type">قهوه ساز صنعتی</span></p>
+                            <p>برند: <span id="preview-device-brand">[برند]</span></p>
+                            <p>مدل: <span id="preview-device-model">[مدل]</span></p>
+                            <p>سریال: <span id="preview-device-serial">[سریال]</span></p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-bold text-stone-600 mb-2">شرح کالا و خدمات:</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th class="w-2/5">شرح</th>
+                                    <th>تعداد</th>
+                                    <th>قیمت واحد (ریال)</th>
+                                    <th class="text-left">مبلغ کل (ریال)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="preview-items-body">
+                                <!-- Items will be dynamically inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="grid grid-cols-5 mt-6">
+                        <div class="col-span-3">
+                           <h3 class="font-bold text-stone-600 mb-2">توضیحات و شرایط:</h3>
+                           <div id="preview-notes" class="text-sm text-stone-600 whitespace-pre-wrap">[شرح تعمیرات]</div>
+                           <div id="preview-terms" class="text-sm text-stone-600 whitespace-pre-wrap mt-2">[شرایط پرداخت]</div>
+                           <div id="preview-warranty" class="text-sm text-stone-600 whitespace-pre-wrap mt-2">[گارانتی]</div>
+                        </div>
+                        <div class="col-span-2 text-left">
+                             <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium text-stone-600">جمع کل:</span>
+                                    <span id="preview-subtotal" class="font-bold">۰</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium text-stone-600">تخفیف:</span>
+                                    <span id="preview-discount" class="font-bold">۰</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium text-stone-600">مالیات (۹٪):</span>
+                                    <span id="preview-tax" class="font-bold">۰</span>
+                                </div>
+                                <hr class="my-2 border-stone-300">
+                                <div class="flex justify-between items-center text-lg">
+                                    <span class="font-bold">مبلغ نهایی:</span>
+                                    <span id="preview-total" class="font-extrabold text-stone-800">۰</span>
+                                </div>
+                                <div id="preview-total-words" class="text-xs text-stone-500 mt-1 text-center"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                     <div class="flex justify-around mt-20 pt-10 border-t border-dashed border-stone-300">
+                        <div class="text-center">
+                            <p class="mb-8">مهر و امضای فروشنده</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="mb-8">امضای مشتری</p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            
-            <!-- Footer Section -->
-            <footer class="glass-card p-4 rounded-2xl grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 items-center">
-                <div class="lg:col-span-2 flex items-center gap-4">
-                    <span>رسانه‌های اجتماعی ما:</span>
-                    <div class="flex gap-3">
-                        <a href="#" class="w-8 h-8 bg-black/20 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg></a>
-                        <a href="#" class="w-8 h-8 bg-black/20 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg></a>
-                        <a href="#" class="w-8 h-8 bg-black/20 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12.014c0 4.437 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12.014C22 6.477 17.523 2 12 2z" clip-rule="evenodd" /></svg></a>
-                    </div>
-                </div>
-                <div class="lg:col-span-3 flex items-center gap-2 w-full">
-                    <input type="text" placeholder="پیام سریع..." class="w-full bg-black/20 border border-white/10 rounded-full py-2 px-4 focus:outline-none focus:ring-1 focus:ring-cyan-500">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-colors whitespace-nowrap">ارسال</button>
-                </div>
-            </footer>
-        </main>
 
+            <!-- Form Column -->
+            <div id="form-container" class="lg:col-span-1">
+                <form id="invoice-form" onsubmit="return false;">
+                    
+                    <div class="form-section">
+                        <h3 class="font-bold text-lg mb-4 text-stone-700">اطلاعات فروشنده</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="seller-name" class="form-input" placeholder="نام شرکت / تعمیرکار">
+                            <input type="text" id="seller-address" class="form-input" placeholder="آدرس">
+                            <input type="text" id="seller-phone" class="form-input" placeholder="تلفن">
+                            <input type="text" id="seller-email" class="form-input" placeholder="ایمیل / وبسایت">
+                            <input type="text" id="seller-reg" class="form-input" placeholder="شماره ثبت / کد اقتصادی">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="font-bold text-lg mb-4 text-stone-700">اطلاعات مشتری</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="customer-name" class="form-input" placeholder="نام مشتری / شرکت">
+                            <input type="text" id="customer-address" class="form-input" placeholder="آدرس">
+                            <input type="text" id="customer-phone" class="form-input" placeholder="تلفن تماس">
+                            <input type="text" id="customer-id" class="form-input" placeholder="کد اقتصادی / شناسه ملی">
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="font-bold text-lg mb-4 text-stone-700">مشخصات فاکتور و دستگاه</h3>
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="invoice-number" class="form-input" placeholder="شماره فاکتور">
+                            <input type="date" id="invoice-date" class="form-input">
+                            <input type="text" id="device-brand" class="form-input" placeholder="برند دستگاه">
+                            <input type="text" id="device-model" class="form-input" placeholder="مدل دستگاه">
+                            <input type="text" id="device-serial" class="form-input" placeholder="شماره سریال">
+                         </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="font-bold text-lg mb-4 text-stone-700">کالاها و خدمات</h3>
+                        <div id="items-container" class="space-y-4">
+                            <!-- Item rows will be dynamically inserted here -->
+                        </div>
+                        <button type="button" id="add-item-btn" class="btn btn-secondary mt-4">افزودن ردیف +</button>
+                    </div>
+                    
+                    <div class="form-section">
+                         <h3 class="font-bold text-lg mb-4 text-stone-700">مبالغ و توضیحات</h3>
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                             <div class="space-y-4">
+                                <label class="block">
+                                    <span class="text-stone-600">تخفیف (ریال)</span>
+                                    <input type="number" id="discount-amount" class="form-input mt-1" placeholder="0" min="0">
+                                </label>
+                                <label class="block">
+                                    <span class="text-stone-600">مالیات بر ارزش افزوده (۹٪)</span>
+                                    <input type="checkbox" id="tax-checkbox" class="ml-2" checked>
+                                </label>
+                            </div>
+                            <div class="space-y-4">
+                                <textarea id="notes" class="form-input h-20" placeholder="شرح تعمیرات انجام شده..."></textarea>
+                                <textarea id="terms" class="form-input h-20" placeholder="شرایط پرداخت..."></textarea>
+                                <textarea id="warranty" class="form-input h-20" placeholder="گارانتی خدمات..."></textarea>
+                             </div>
+                         </div>
+                    </div>
+
+                </form>
+
+                <div id="actions-container" class="form-section flex justify-end items-center gap-4">
+                     <button type="button" id="reset-btn" class="btn btn-secondary">بازنشانی فرم</button>
+                    <button type="button" id="print-btn" class="btn btn-primary">چاپ فاکتور</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-</body>
-</html>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('invoice-form');
+            const itemsContainer = document.getElementById('items-container');
+            const addItemBtn = document.getElementById('add-item-btn');
+            let itemCounter = 0;
+
+            const formatNumber = (num) => new Intl.NumberFormat('fa-IR').format(num);
+
+            const numberToWords = (num) => {
+                const ones = ['', 'یک', 'دو', 'سه', 'چهار', 'پنج', 'شش', 'هفت', 'هشت', 'نه'];
+                const teens = ['ده', 'یازده', 'دوازده', 'سیزده', 'چهارده', 'پانزده', 'شانزده', 'هفده', 'هجده', 'نوزده'];
+                const tens = ['', 'ده', 'بیست', 'سی', 'چهل', 'پنجاه', 'شصت', 'هفتاد', 'هشتاد', 'نود'];
+                const hundreds = ['', 'یکصد', 'دویست', 'سیصد', 'چهارصد', 'پانصد', 'ششصد', 'هفتصد', 'هشتصد', 'نهصد'];
+                const thousands = ['', 'هزار', 'میلیون', 'میلیارد'];
+
+                function convertLessThanOneThousand(n) {
+                    if (n === 0) return '';
+                    if (n < 10) return ones[n];
+                    if (n < 20) return teens[n - 10];
+                    if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' و ' + ones[n % 10] : '');
+                    return hundreds[Math.floor(n / 100)] + (n % 100 !== 0 ? ' و ' + convertLessThanOneThousand(n % 100) : '');
+                }
+
+                if (num === 0) return 'صفر';
+                let word = '';
+                let i = 0;
+                while (num > 0) {
+                    if (num % 1000 !== 0) {
+                        word = convertLessThanOneThousand(num % 1000) + ' ' + thousands[i] + (word ? ' و ' : '') + word;
+                    }
+                    num = Math.floor(num / 1000);
+                    i++;
+                }
+                return word.trim();
+            };
+
+            const updatePreview = () => {
+                // Seller and Customer Info
+                document.getElementById('preview-seller-name').textContent = document.getElementById('seller-name').value || '[نام شرکت]';
+                document.getElementById('preview-seller-address').textContent = document.getElementById('seller-address').value || '[آدرس]';
+                document.getElementById('preview-seller-phone').textContent = document.getElementById('seller-phone').value || '[تلفن]';
+                document.getElementById('preview-seller-email').textContent = document.getElementById('seller-email').value || '[ایمیل]';
+                document.getElementById('preview-seller-reg').textContent = document.getElementById('seller-reg').value || '[شماره ثبت]';
+                
+                document.getElementById('preview-customer-name').textContent = document.getElementById('customer-name').value || '[نام مشتری]';
+                document.getElementById('preview-customer-address').textContent = document.getElementById('customer-address').value || '[آدرس]';
+                document.getElementById('preview-customer-phone').textContent = document.getElementById('customer-phone').value || '[تلفن]';
+                document.getElementById('preview-customer-id').textContent = document.getElementById('customer-id').value || '[کد اقتصادی]';
+
+                // Invoice and Device Info
+                document.getElementById('preview-invoice-number').textContent = document.getElementById('invoice-number').value || '[شماره]';
+                const dateValue = document.getElementById('invoice-date').value;
+                if (dateValue) {
+                    const date = new Date(dateValue);
+                    document.getElementById('preview-invoice-date').textContent = new Intl.DateTimeFormat('fa-IR').format(date);
+                } else {
+                     document.getElementById('preview-invoice-date').tex
