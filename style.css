@@ -126,7 +126,8 @@ body {
         visibility: visible;
     }
     #invoice-preview {
-        position: absolute;
+        /* --- IMPORTANT --- Make position relative for watermark */
+        position: relative; 
         left: 0;
         top: 0;
         width: 100%;
@@ -139,6 +140,22 @@ body {
     }
     #invoice-preview *, #invoice-preview {
         color: #000 !important;
-        background-color: #fff !important;
+        background-color: transparent !important; /* Make background transparent */
+    }
+
+    /* --- NEW --- Watermark Style */
+    #invoice-preview::after {
+        content: "";
+        background-image: url('logo.png'); /* Path to your logo */
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain; /* Adjust as needed: 'cover', '50%', etc. */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.08; /* Adjust for desired faintness */
+        z-index: -1; /* Place watermark behind the text */
     }
 }
