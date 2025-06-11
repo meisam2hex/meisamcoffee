@@ -28,42 +28,37 @@
                 <div id="invoice-preview" class="sticky top-8">
                     <h2 class="text-2xl font-bold text-center mb-6">فاکتور فروش کالا و خدمات</h2>
                     
-                    <div class="grid grid-cols-2 gap-8 mb-6">
+                    <!-- Seller and Invoice Info Section -->
+                    <div class="flex justify-between items-start mb-4">
                         <div>
                             <h3 class="font-bold text-stone-600 mb-2">اطلاعات فروشنده:</h3>
-                            <p id="preview-seller-name">[نام شرکت / تعمیرکار]</p>
-                            <p id="preview-seller-address">[آدرس]</p>
-                            <p id="preview-seller-phone">[تلفن]</p>
-                            <p id="preview-seller-email">[ایمیل / وبسایت]</p>
-                            <p id="preview-seller-reg">[شماره ثبت]</p>
+                            <div class="info-block-container">
+                                <p><strong class="info-label">نام:</strong> <span id="preview-seller-name">[نام شرکت]</span></p>
+                                <p><strong class="info-label">آدرس:</strong> <span id="preview-seller-address">[آدرس]</span></p>
+                                <p><strong class="info-label">تلفن:</strong> <span id="preview-seller-phone">[تلفن]</span></p>
+                            </div>
                         </div>
                         <div class="text-left">
                             <h3 class="font-bold text-stone-600 mb-2">مشخصات فاکتور:</h3>
-                            <p>شماره: <span id="preview-invoice-number">[شماره فاکتور]</span></p>
-                            <p>تاریخ: <span id="preview-invoice-date">[تاریخ روز]</span></p>
+                            <p><strong>شماره:</strong> <span id="preview-invoice-number">[شماره]</span></p>
+                            <p><strong>تاریخ:</strong> <span id="preview-invoice-date">[تاریخ]</span></p>
                         </div>
                     </div>
 
                     <hr class="my-6 border-stone-200">
 
-                    <div class="grid grid-cols-2 gap-8 mb-6">
-                        <div>
-                            <h3 class="font-bold text-stone-600 mb-2">مشخصات خریدار:</h3>
-                            <p id="preview-customer-name">[نام مشتری]</p>
-                            <p id="preview-customer-address">[آدرس]</p>
-                            <p id="preview-customer-phone">[تلفن]</p>
-                            <p id="preview-customer-id">[کد اقتصادی]</p>
-                        </div>
-                         <div>
-                            <h3 class="font-bold text-stone-600 mb-2">مشخصات دستگاه:</h3>
-                            <p>نوع: <span id="preview-device-type">قهوه ساز صنعتی</span></p>
-                            <p>برند: <span id="preview-device-brand">[برند]</span></p>
-                            <p>مدل: <span id="preview-device-model">[مدل]</span></p>
-                            <p>سریال: <span id="preview-device-serial">[سریال]</span></p>
+                    <!-- Customer and Device Info Section -->
+                    <div>
+                        <h3 class="font-bold text-stone-600 mb-2">مشخصات خریدار و دستگاه:</h3>
+                        <div class="info-block-container">
+                            <p><strong class="info-label">مشتری:</strong> <span id="preview-customer-name">[نام مشتری]</span></p>
+                            <p><strong class="info-label">آدرس:</strong> <span id="preview-customer-address">[آدرس]</span></p>
+                            <p><strong class="info-label">تلفن:</strong> <span id="preview-customer-phone">[تلفن]</span></p>
+                            <p><strong class="info-label">دستگاه:</strong> <span id="preview-device-brand">[برند]</span> - <span id="preview-device-model">[مدل]</span></p>
                         </div>
                     </div>
 
-                    <h3 class="font-bold text-stone-600 mb-2">شرح کالا و خدمات:</h3>
+                    <h3 class="font-bold text-stone-600 mt-8 mb-2">شرح کالا و خدمات:</h3>
                     <div class="overflow-x-auto">
                         <table class="min-w-full">
                             <thead>
@@ -118,7 +113,7 @@
                     </div>
                     <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">مبالغ و توضیحات</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="space-y-4"><label class="block"><span class="text-stone-600">تخفیف (ریال)</span><input type="number" id="discount-amount" class="form-input mt-1" placeholder="0" min="0"></label><label class="block"><span class="text-stone-600">مالیات بر ارزش افزوده (۹٪)</span><input type="checkbox" id="tax-checkbox" class="ml-2" checked></label></div><div class="space-y-4"><textarea id="notes" class="form-input h-20" placeholder="شرح تعمیرات انجام شده..."></textarea><textarea id="terms" class="form-input h-20" placeholder="شرایط پرداخت..."></textarea><textarea id="warranty" class="form-input h-20" placeholder="گارانتی خدمات..."></textarea></div></div></div>
                 </form>
-                <div id="actions-container" class="form-section flex justify-end items-center gap-4">
+                <div id="actions-container" class="flex justify-end items-center gap-4">
                      <button type="button" id="reset-btn" class="btn btn-secondary">بازنشانی فرم</button>
                     <button type="button" id="print-btn" class="btn btn-primary">چاپ فاکتور</button>
                 </div>
@@ -129,4 +124,5 @@
     <!-- Link to your external JavaScript file -->
     <script src="script.js"></script>
 </body>
-</html>
+                                       </html>
+    
