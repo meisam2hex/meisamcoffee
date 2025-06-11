@@ -1,28 +1,58 @@
-// Wait until the DOM is fully loaded before running the script
+// Wait for the entire HTML document to be loaded and parsed
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Get references to DOM elements
+    // --- 1. Get references to all necessary DOM elements ---
+    // This makes the code cleaner and easier to debug.
     const form = document.getElementById('invoice-form');
     const itemsContainer = document.getElementById('items-container');
     const addItemBtn = document.getElementById('add-item-btn');
-    const allInputs = form.querySelectorAll('input, textarea');
+    const printBtn = document.getElementById('print-btn');
+    const resetBtn = document.getElementById('reset-btn');
 
-    // --- Helper Functions ---
+    // Input fields
+    const sellerNameInput = document.getElementById('seller-name');
+    const sellerAddressInput = document.getElementById('seller-address');
+    const sellerPhoneInput = document.getElementById('seller-phone');
+    const customerNameInput = document.getElementById('customer-name');
+    const customerAddressInput = document.getElementById('customer-address');
+    const customerPhoneInput = document.getElementById('customer-phone');
+    const invoiceNumberInput = document.getElementById('invoice-number');
+    const invoiceDateInput = document.getElementById('invoice-date');
+    const deviceBrandInput = document.getElementById('device-brand');
+    const deviceModelInput = document.getElementById('device-model');
+    const discountInput = document.getElementById('discount-amount');
+    const taxCheckbox = document.getElementById('tax-checkbox');
+    const notesInput = document.getElementById('notes');
+    const termsInput = document.getElementById('terms');
+    const warrantyInput = document.getElementById('warranty');
 
-    /**
-     * Formats a number to a Persian-locale string.
-     * @param {number} num - The number to format.
-     * @returns {string} The formatted number string.
-     */
+    // Preview fields
+    const previewSellerName = document.getElementById('preview-seller-name');
+    const previewSellerAddress = document.getElementById('preview-seller-address');
+    const previewSellerPhone = document.getElementById('preview-seller-phone');
+    const previewCustomerName = document.getElementById('preview-customer-name');
+    const previewCustomerAddress = document.getElementById('preview-customer-address');
+    const previewCustomerPhone = document.getElementById('preview-customer-phone');
+    const previewInvoiceNumber = document.getElementById('preview-invoice-number');
+    const previewInvoiceDate = document.getElementById('preview-invoice-date');
+    const previewDeviceBrand = document.getElementById('preview-device-brand');
+    const previewDeviceModel = document.getElementById('preview-device-model');
+    const previewItemsBody = document.getElementById('preview-items-body');
+    const previewSubtotal = document.getElementById('preview-subtotal');
+    const previewDiscount = document.getElementById('preview-discount');
+    const previewTax = document.getElementById('preview-tax');
+    const previewTotal = document.getElementById('preview-total');
+    const previewTotalWords = document.getElementById('preview-total-words');
+    const previewNotes = document.getElementById('preview-notes');
+    const previewTerms = document.getElementById('preview-terms');
+    const previewWarranty = document.getElementById('preview-warranty');
+
+    // --- 2. Helper Functions ---
+
     const formatNumber = (num) => new Intl.NumberFormat('fa-IR').format(num);
 
-    /**
-     * Converts a number to its Persian word representation.
-     * @param {number} num - The number to convert.
-     * @returns {string} The number in words.
-     */
     const numberToWords = (num) => {
-        if (num === null || num === undefined) return '';
+        if (num === null || isNaN(num)) return '';
         num = Math.round(num);
         const ones = ['', 'یک', 'دو', 'سه', 'چهار', 'پنج', 'شش', 'هفت', 'هشت', 'نه'];
         const teens = ['ده', 'یازده', 'دوازده', 'سیزده', 'چهارده', 'پانزده', 'شانزده', 'هفده', 'هجده', 'نوزده'];
@@ -51,35 +81,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return word.trim();
     };
 
-    // --- Core Functions ---
+    // --- 3. Core Functions ---
 
-    /**
-     * Updates the invoice preview with the current form data.
-     */
     const updatePreview = () => {
-        // Update seller, customer, and invoice details
-        document.getElementById('preview-seller-name').textContent = document.getElementById('seller-name').value || '[نام شرکت]';
-        document.getElementById('preview-seller-address').textContent = document.getElementById('seller-address').value || '[آدرس]';
-        document.getElementById('preview-seller-phone').textContent = document.getElementById('seller-phone').value || '[تلفن]';
-        document.getElementById('preview-seller-email').textContent = document.getElementById('seller-email').value || '[ایمیل]';
-        document.getElementById('preview-seller-reg').textContent = document.getElementById('seller-reg').value || '[شماره ثبت]';
-        document.getElementById('preview-customer-name').textContent = document.getElementById('customer-name').value || '[نام مشتری]';
-        document.getElementById('preview-customer-address').textContent = document.getElementById('customer-address').value || '[آدرس]';
-        document.getElementById('preview-customer-phone').textContent = document.getElementById('customer-phone').value || '[تلفن]';
-        document.getElementById('preview-customer-id').textContent = document.getElementById('customer-id').value || '[کد اقتصادی]';
-        document.getElementById('preview-invoice-number').textContent = document.getElementById('invoice-number').value || '[شماره]';
-        const dateValue = document.getElementById('invoice-date').value;
-        document.getElementById('preview-invoice-date').textContent = dateValue ? new Intl.DateTimeFormat('fa-IR').format(new Date(dateValue)) : '[تاریخ]';
-        document.getElementById('preview-device-brand').textContent = document.getElementById('device-brand').value || '[برند]';
-        document.getElementById('preview-device-model').textContent = document.getElementById('device-model').value || '[مدل]';
-        document.getElementById('preview-device-serial').textContent = document.getElementById('device-serial').value || '[سریال]';
+        // Update static text fields
+        previewSellerName.textContent = sellerNameInput.value || '[نام شرکت]';
+        previewSellerAddress.textContent = sellerAddressInput.value || '[آدرس]';
+        previewSellerPhone.textContent = sellerPhoneInput.value || '[تلفن]';
+        previewCustomerName.textContent = customerNameInput.value || '[نام مشتری]';
+        previewCustomerAddress.textContent = customerAddressInput.value || '[آدرس]';
+        previewCustomerPhone.textContent = customerPhoneInput.value || '[تلفن]';
+        previewInvoiceNumber.textContent = invoiceNumberInput.value || '[شماره]';
+        previewDeviceBrand.textContent = deviceBrandInput.value || '[برند]';
+        previewDeviceModel.textContent = deviceModelInput.value || '[مدل]';
+        previewNotes.textContent = notesInput.value || '[شرح تعمیرات...]';
+        previewTerms.textContent = termsInput.value || '[شرایط پرداخت...]';
+        previewWarranty.textContent = warrantyInput.value || '[گارانتی...]';
         
-        // Update invoice items table
-        const itemsPreviewBody = document.getElementById('preview-items-body');
-        itemsPreviewBody.innerHTML = '';
+        const dateValue = invoiceDateInput.value;
+        previewInvoiceDate.textContent = dateValue ? new Intl.DateTimeFormat('fa-IR').format(new Date(dateValue)) : '[تاریخ]';
+
+        // Update items table and calculate totals
+        previewItemsBody.innerHTML = '';
         let subtotal = 0;
-        
         const itemRows = itemsContainer.querySelectorAll('.item-row');
+        
         itemRows.forEach((row, index) => {
             const desc = row.querySelector('.item-desc').value;
             const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
@@ -89,56 +115,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const previewRow = document.createElement('tr');
             previewRow.innerHTML = `<td>${index + 1}</td><td>${desc || ''}</td><td>${formatNumber(qty)}</td><td>${formatNumber(price)}</td><td class="text-left font-medium">${formatNumber(total)}</td>`;
-            itemsPreviewBody.appendChild(previewRow);
+            previewItemsBody.appendChild(previewRow);
         });
 
-        // Calculate and update totals
-        const discount = parseFloat(document.getElementById('discount-amount').value) || 0;
-        const taxEnabled = document.getElementById('tax-checkbox').checked;
+        const discount = parseFloat(discountInput.value) || 0;
+        const taxEnabled = taxCheckbox.checked;
         const amountAfterDiscount = subtotal - discount;
         const tax = taxEnabled ? Math.round(amountAfterDiscount * 0.09) : 0;
         const total = amountAfterDiscount + tax;
 
-        document.getElementById('preview-subtotal').textContent = formatNumber(subtotal);
-        document.getElementById('preview-discount').textContent = `(${formatNumber(discount)})`;
-        document.getElementById('preview-tax').textContent = formatNumber(tax);
-        document.getElementById('preview-total').textContent = formatNumber(total);
-        document.getElementById('preview-total-words').textContent = total > 0 ? numberToWords(total) + ' ریال' : '';
-
-        // Update notes and terms
-        document.getElementById('preview-notes').textContent = document.getElementById('notes').value || '[شرح تعمیرات...]';
-        document.getElementById('preview-terms').textContent = document.getElementById('terms').value || '[شرایط پرداخت...]';
-        document.getElementById('preview-warranty').textContent = document.getElementById('warranty').value || '[گارانتی...]';
+        previewSubtotal.textContent = formatNumber(subtotal);
+        previewDiscount.textContent = `(${formatNumber(discount)})`;
+        previewTax.textContent = formatNumber(tax);
+        previewTotal.textContent = formatNumber(total);
+        previewTotalWords.textContent = total > 0 ? numberToWords(total) + ' ریال' : '';
     };
-    
-    /**
-     * Adds a new item row to the form.
-     */
+
     const addItemRow = () => {
         const row = document.createElement('div');
         row.className = 'item-row grid grid-cols-12 gap-2 items-center';
         row.innerHTML = `<input type="text" class="form-input col-span-5 item-desc" placeholder="شرح کالا یا خدمات"><input type="number" class="form-input col-span-2 item-qty" placeholder="تعداد" min="1" value="1"><input type="number" class="form-input col-span-3 item-price" placeholder="قیمت واحد" min="0"><div class="col-span-2 text-center"><button type="button" class="btn-danger remove-item-btn">حذف</button></div>`;
         itemsContainer.appendChild(row);
     };
-    
-    // --- Event Listeners ---
 
-    // Event delegation for dynamically added/removed items
+    // --- 4. Event Listeners ---
+
+    // Listen for any input changes on the entire form
+    form.addEventListener('input', updatePreview);
+
+    // Specifically handle clicks inside the items container (for remove buttons)
     itemsContainer.addEventListener('click', (e) => {
         if (e.target && e.target.classList.contains('remove-item-btn')) {
             e.target.closest('.item-row').remove();
-            updatePreview();
+            updatePreview(); // Update preview after removing a row
         }
     });
-
-    itemsContainer.addEventListener('input', (e) => {
-        if (e.target && (e.target.classList.contains('item-qty') || e.target.classList.contains('item-price') || e.target.classList.contains('item-desc'))) {
-            updatePreview();
-        }
-    });
-    
-    // Listen for input on all static form fields
-    allInputs.forEach(input => input.addEventListener('input', updatePreview));
     
     // Add item button click
     addItemBtn.addEventListener('click', () => {
@@ -147,18 +158,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Action buttons
-    document.getElementById('print-btn').addEventListener('click', () => window.print());
-    document.getElementById('reset-btn').addEventListener('click', () => {
+    printBtn.addEventListener('click', () => window.print());
+    resetBtn.addEventListener('click', () => {
         form.reset();
         itemsContainer.innerHTML = '';
-        addItemRow();
+        addItemRow(); // Add one row back after clearing
         updatePreview();
     });
 
-    // --- Initial State ---
-    // Set today's date and add one initial item row
-    document.getElementById('invoice-date').value = new Date().toISOString().split('T')[0];
+    // --- 5. Initial State ---
+    
+    // Set today's date
+    invoiceDateInput.value = new Date().toISOString().split('T')[0];
+    
+    // Add one initial item row
     addItemRow();
+    
+    // Run preview once to initialize the view
     updatePreview();
 });
-        
