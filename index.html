@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مولد فاکتور سرویس قهوه ساز</title>
+    <title>مولد فاکتور حرفه‌ای</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Link to your external CSS file -->
+    <!-- External CSS File -->
     <link rel="stylesheet" href="style.css">
+    <!-- External JS File with defer attribute for robust loading -->
+    <script src="script.js" defer></script>
 </head>
 <body class="p-4 sm:p-6 lg:p-8">
 
@@ -21,14 +23,13 @@
             <p class="text-stone-500 mt-2">اطلاعات را در فرم سمت راست وارد کنید و پیش‌نمایش زنده را در سمت چپ ببینید.</p>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <main class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
             <!-- Preview Column -->
-            <div id="preview-container" class="lg:col-span-1">
+            <section id="preview-container" class="lg:col-span-1">
                 <div id="invoice-preview" class="sticky top-8">
                     <h2 class="text-2xl font-bold text-center mb-6">فاکتور فروش کالا و خدمات</h2>
                     
-                    <!-- Seller and Invoice Info Section -->
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <h3 class="font-bold text-stone-600 mb-2">اطلاعات فروشنده:</h3>
@@ -47,7 +48,6 @@
 
                     <hr class="my-6 border-stone-200">
 
-                    <!-- Customer and Device Info Section -->
                     <div>
                         <h3 class="font-bold text-stone-600 mb-2">مشخصات خریدار و دستگاه:</h3>
                         <div class="info-block-container">
@@ -98,14 +98,14 @@
                         <div class="text-center"><p class="mb-8">امضای مشتری</p></div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <!-- Form Column -->
-            <div id="form-container" class="lg:col-span-1">
+            <section id="form-container" class="lg:col-span-1">
                 <form id="invoice-form" onsubmit="return false;">
-                    <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">اطلاعات فروشنده</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="seller-name" class="form-input" placeholder="نام شرکت / تعمیرکار"><input type="text" id="seller-address" class="form-input" placeholder="آدرس"><input type="text" id="seller-phone" class="form-input" placeholder="تلفن"><input type="text" id="seller-email" class="form-input" placeholder="ایمیل / وبسایت"><input type="text" id="seller-reg" class="form-input" placeholder="شماره ثبت / کد اقتصادی"></div></div>
-                    <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">اطلاعات مشتری</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="customer-name" class="form-input" placeholder="نام مشتری / شرکت"><input type="text" id="customer-address" class="form-input" placeholder="آدرس"><input type="text" id="customer-phone" class="form-input" placeholder="تلفن تماس"><input type="text" id="customer-id" class="form-input" placeholder="کد اقتصادی / شناسه ملی"></div></div>
-                    <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">مشخصات فاکتور و دستگاه</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="invoice-number" class="form-input" placeholder="شماره فاکتور"><input type="date" id="invoice-date" class="form-input"><input type="text" id="device-brand" class="form-input" placeholder="برند دستگاه"><input type="text" id="device-model" class="form-input" placeholder="مدل دستگاه"><input type="text" id="device-serial" class="form-input" placeholder="شماره سریال"></div></div>
+                    <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">اطلاعات فروشنده</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="seller-name" class="form-input" placeholder="نام شرکت / تعمیرکار"><input type="text" id="seller-address" class="form-input" placeholder="آدرس"><input type="text" id="seller-phone" class="form-input" placeholder="تلفن"></div></div>
+                    <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">اطلاعات مشتری</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="customer-name" class="form-input" placeholder="نام مشتری / شرکت"><input type="text" id="customer-address" class="form-input" placeholder="آدرس"><input type="text" id="customer-phone" class="form-input" placeholder="تلفن تماس"></div></div>
+                    <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">مشخصات فاکتور و دستگاه</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="invoice-number" class="form-input" placeholder="شماره فاکتور"><input type="date" id="invoice-date" class="form-input"><input type="text" id="device-brand" class="form-input" placeholder="برند دستگاه"><input type="text" id="device-model" class="form-input" placeholder="مدل دستگاه"></div></div>
                     <div class="form-section">
                         <h3 class="font-bold text-lg mb-4 text-stone-700">کالاها و خدمات</h3>
                         <div id="items-container" class="space-y-4"></div>
@@ -117,12 +117,9 @@
                      <button type="button" id="reset-btn" class="btn btn-secondary">بازنشانی فرم</button>
                     <button type="button" id="print-btn" class="btn btn-primary">چاپ فاکتور</button>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
 
-    <!-- Link to your external JavaScript file -->
-    <script src="script.js"></script>
 </body>
-                                       </html>
-    
+</html>
