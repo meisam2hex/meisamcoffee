@@ -91,7 +91,7 @@ body {
     font-size: 14px;
 }
 
-/* --- NEW --- Styles for linear info blocks */
+/* Styles for linear info blocks */
 .info-block-container {
     display: flex;
     flex-wrap: wrap;
@@ -123,42 +123,39 @@ body {
     font-weight: 500;
 }
 
-/* OVERHAULED Print-specific styles for a clean, single-page output */
+/* --- FINAL PRINT FIX --- Simplified and Robust Print Styles */
 @media print {
-    body > *:not(#preview-container) {
-        display: none;
+    /* Hide everything by default */
+    body * {
+        visibility: hidden;
     }
-    html, body {
-        margin: 0;
-        padding: 0;
-        background-color: #fff;
+    
+    /* Make only the invoice preview and its contents visible */
+    #invoice-preview, #invoice-preview * {
+        visibility: visible;
     }
-    #preview-container {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
+    
+    /* Position the invoice at the top of the print page */
     #invoice-preview {
-        margin: 1cm; /* Standard print margin */
-        padding: 0;
-        border-radius: 0;
-        border: 1px solid #ccc;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 1.5cm; /* Add some padding for printing */
+        box-sizing: border-box; /* Ensure padding is included in the width */
+        border: none;
         box-shadow: none;
-        width: auto;
-        height: auto;
-        position: static;
         font-size: 10pt;
-        color: #000;
     }
-    table { page-break-inside: auto; }
-    tr { page-break-inside: avoid; page-break-after: auto; }
-    thead { display: table-header-group; }
-    h2, h3, .grid, .flex, .info-block-container { page-break-inside: avoid; }
-    a[href]:after { content: none !important; }
-    * { color: #000 !important; background: transparent !important; }
+
+    /* Ensure table layout is clean for print */
+    #invoice-preview table {
+        width: 100%;
     }
+    
+    /* Ensure all text is black for print */
+    #invoice-preview *, #invoice-preview {
+        color: #000 !important;
+    }
+}
