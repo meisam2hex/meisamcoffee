@@ -70,7 +70,7 @@ body {
     background-color: #f87171; /* red-400 */
 }
 
-/* --- NEW --- Beautiful container for action buttons */
+/* Beautiful container for action buttons */
 #actions-container {
     background-color: #fafaf9; /* stone-50 */
     border: 1px solid #e7e5e4; /* stone-200 */
@@ -88,6 +88,22 @@ body {
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     border: 1px solid #e7e5e4; /* stone-200 */
     color: #1c1917; /* stone-900 */
+    font-size: 14px;
+}
+
+/* --- NEW --- Styles for linear info blocks */
+.info-block-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem; /* 0.5rem vertical gap, 1.5rem horizontal gap */
+    line-height: 1.6;
+}
+.info-block-container p {
+    margin: 0;
+}
+.info-label {
+    font-weight: 500;
+    color: #57534e; /* stone-600 */
 }
 
 #invoice-preview table {
@@ -100,7 +116,6 @@ body {
     padding: 0.75rem;
     text-align: right;
     border-bottom: 1px solid #e7e5e4; /* stone-200 */
-    font-size: 14px; /* Slightly smaller font for better fit */
 }
 
 #invoice-preview th {
@@ -108,21 +123,16 @@ body {
     font-weight: 500;
 }
 
-/* --- OVERHAULED --- Print-specific styles for a clean, single-page output */
+/* OVERHAULED Print-specific styles for a clean, single-page output */
 @media print {
-    /* Hide everything except the invoice preview */
     body > *:not(#preview-container) {
         display: none;
     }
-
-    /* Reset body and html for printing */
     html, body {
         margin: 0;
         padding: 0;
         background-color: #fff;
     }
-
-    /* Configure the preview container to be the only thing on the page */
     #preview-container {
         display: block;
         width: 100%;
@@ -133,47 +143,22 @@ body {
         top: 0;
         left: 0;
     }
-    
     #invoice-preview {
         margin: 1cm; /* Standard print margin */
         padding: 0;
         border-radius: 0;
         border: 1px solid #ccc;
         box-shadow: none;
-        width: auto; /* Let it fit within the margins */
+        width: auto;
         height: auto;
-        position: static; /* Override sticky positioning */
-        font-size: 10pt; /* Optimal font size for print */
+        position: static;
+        font-size: 10pt;
         color: #000;
     }
-
-    /* Ensure table headers and footers are respected if page breaks (though we aim to avoid it) */
-    table {
-        page-break-inside: auto;
+    table { page-break-inside: auto; }
+    tr { page-break-inside: avoid; page-break-after: auto; }
+    thead { display: table-header-group; }
+    h2, h3, .grid, .flex, .info-block-container { page-break-inside: avoid; }
+    a[href]:after { content: none !important; }
+    * { color: #000 !important; background: transparent !important; }
     }
-
-    tr {
-        page-break-inside: avoid;
-        page-break-after: auto;
-    }
-
-    thead {
-        display: table-header-group;
-    }
-
-    /* Avoid page breaks inside these elements */
-    h2, h3, .grid, .flex {
-        page-break-inside: avoid;
-    }
-
-    /* Remove link colors and underlines for cleaner print */
-    a[href]:after {
-        content: none !important;
-    }
-
-    /* Ensure text is black for better readability */
-    * {
-        color: #000 !important;
-        background: transparent !important;
-    }
-}
