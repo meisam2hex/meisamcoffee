@@ -146,7 +146,7 @@ body {
     /* --- NEW --- Watermark Style */
     #invoice-preview::after {
         content: "";
-        background-image: url('logo.png'); /* Path to your logo */
+        background-image: url('https://github.com/meisam2hex/meisamcoffee/blob/main/logo.png'); /* Path to your logo */
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain; /* Adjust as needed: 'cover', '50%', etc. */
