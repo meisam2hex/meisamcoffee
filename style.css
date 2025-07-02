@@ -117,8 +117,14 @@ body {
     font-weight: 500;
 }
 
-/* FINAL PRINT FIX - Simplified and Robust Print Styles */
+/* --- A5 PRINT SETTINGS --- */
 @media print {
+    /* --- NEW --- Define the paper size */
+    @page {
+        size: A5;
+        margin: 0;
+    }
+
     body * {
         visibility: hidden;
     }
@@ -126,36 +132,35 @@ body {
         visibility: visible;
     }
     #invoice-preview {
-        /* --- IMPORTANT --- Make position relative for watermark */
         position: relative; 
         left: 0;
         top: 0;
         width: 100%;
         margin: 0;
-        padding: 1.5cm;
+        padding: 1cm; /* Adjusted padding for A5 */
         box-sizing: border-box;
         border: none;
         box-shadow: none;
-        font-size: 10pt;
+        font-size: 9pt; /* Adjusted font size for A5 */
     }
     #invoice-preview *, #invoice-preview {
         color: #000 !important;
-        background-color: transparent !important; /* Make background transparent */
+        background-color: transparent !important;
     }
 
-    /* --- NEW --- Watermark Style */
+    /* Watermark Style */
     #invoice-preview::after {
         content: "";
-        background-image: url('https://github.com/meisam2hex/meisamcoffee/blob/main/logo.png'); /* Path to your logo */
+        background-image: url('logo.png'); /* Path to your logo */
         background-repeat: no-repeat;
         background-position: center;
-        background-size: contain; /* Adjust as needed: 'cover', '50%', etc. */
+        background-size: contain;
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        opacity: 0.25; /* Adjust for desired faintness */
-        z-index: -1; /* Place watermark behind the text */
+        opacity: 0.08;
+        z-index: -1;
     }
 }
