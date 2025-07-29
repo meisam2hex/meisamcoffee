@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>علاقه‌مندی‌ها - فروشگاه قهوه ساز صنعتی</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet" integrity="sha384-dpuaG1suU0eT09BZpEylRnUAld9//210GZvE/6iQCht+5cdKjbdeIE2srNMo2lCjd" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="logo.png" alt="Logo" style="height: 40px;">
+                    کافی شاپ صنعتی
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">صفحه اصلی</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">فروشگاه</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">درباره ما</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">تماس با ما</a>
+                        </li>
+                    </ul>
+                    <div class="navbar-icons d-flex">
+                        <a href="#" class="nav-link"><i class="fas fa-search"></i></a>
+                        <a href="wishlist.html" class="nav-link active" aria-current="page"><i class="fas fa-heart"></i></a>
+                        <a href="cart.html" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
+                        <a href="#" class="nav-link"><i class="fas fa-user"></i></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container my-5">
+        <h2>لیست علاقه‌مندی‌های شما</h2>
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">محصول</th>
+                    <th scope="col">قیمت</th>
+                    <th scope="col">وضعیت موجودی</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="https://via.placeholder.com/100x100.png?text=Product" class="img-fluid rounded" style="width: 100px;" alt="">
+                            <div class="ms-3">
+                                <h6 class="mb-0">قهوه ساز مدل X-Pro</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td>25,000,000 تومان</td>
+                    <td><span class="badge bg-success">موجود</span></td>
+                    <td><a href="#" class="btn btn-primary btn-sm text-white" style="background-color: #8B4513;">افزودن به سبد</a></td>
+                    <td><a href="#" class="text-danger"><i class="fas fa-times"></i></a></td>
+                </tr>
+                 <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="https://via.placeholder.com/100x100.png?text=Product+2" class="img-fluid rounded" style="width: 100px;" alt="">
+                            <div class="ms-3">
+                                <h6 class="mb-0">قهوه ساز مدل Y</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td>32,000,000 تومان</td>
+                    <td><span class="badge bg-danger">ناموجود</span></td>
+                    <td><a href="#" class="btn btn-secondary btn-sm" disabled>افزودن به سبد</a></td>
+                    <td><a href="#" class="text-danger"><i class="fas fa-times"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">درباره ما</h5>
+                    <p>
+                        ما بهترین و با کیفیت ترین قهوه ساز های صنعتی را برای کسب و کار شما فراهم می کنیم.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">لینک های سریع</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="#">سیاست حفظ حریم خصوصی</a></li>
+                        <li><a href="#">شرایط استفاده</a></li>
+                        <li><a href="#">سوالات متداول</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">تماس با ما</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt"></i> تهران، خیابان ولیعصر، کوچه دوم</li>
+                        <li><i class="fas fa-phone"></i> 021-12345678</li>
+                        <li><i class="fas fa-envelope"></i> info@example.com</li>
+                    </ul>
+                </div>
+                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">خبرنامه</h5>
+                    <p>برای دریافت آخرین اخبار و تخفیف ها عضو شوید.</p>
+                    <form action="#">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="ایمیل شما" >
+                            <button class="btn btn-primary" type="button" style="background-color: #8B4513; border-color: #8B4513;">عضویت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 1403 تمام حقوق محفوظ است.
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+</html>

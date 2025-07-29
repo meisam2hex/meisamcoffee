@@ -3,123 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> قهوه ساز صنعتی میثم</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>فروشگاه قهوه ساز صنعتی</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet" integrity="sha384-dpuaG1suU0eT09BZpEylRnUAld9//210GZvE/6iQCht+5cdKjbdeIE2srNMo2lCjd" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- External CSS File -->
-    <link rel="stylesheet" href="style.css">
-    <!-- External JS File with defer attribute for robust loading -->
-    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body class="p-4 sm:p-6 lg:p-8">
+<body>
 
-    <div class="max-w-screen-2xl mx-auto">
-        <header class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-stone-700"> قهوه ساز صنعتی میثم</h1>
-            <p class="text-stone-500 mt-2">سرویس و تعنیرات انواع قهوه ساز صنعتی.</p>
-        </header>
-
-        <main class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            <!-- Preview Column -->
-            <section id="preview-container" class="lg:col-span-1">
-                <div id="invoice-preview" class="sticky top-8">
-                    <h2 class="text-2xl font-bold text-center mb-6">فاکتور فروش کالا و خدمات</h2>
-                    
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="font-bold text-stone-600 mb-2">اطلاعات فروشنده:</h3>
-                            <div class="info-block-container">
-                                <p><strong class="info-label">نام:</strong> <span id="preview-seller-name">[نام شرکت]</span></p>
-                                <p><strong class="info-label">آدرس:</strong> <span id="preview-seller-address">[آدرس]</span></p>
-                                <p><strong class="info-label">تلفن:</strong> <span id="preview-seller-phone">[تلفن]</span></p>
-                            </div>
-                        </div>
-                        <div class="text-left">
-                            <h3 class="font-bold text-stone-600 mb-2">مشخصات فاکتور:</h3>
-                            <p><strong>شماره:</strong> <span id="preview-invoice-number">[شماره]</span></p>
-                            <p><strong>تاریخ:</strong> <span id="preview-invoice-date">[تاریخ]</span></p>
-                        </div>
-                    </div>
-
-                    <hr class="my-6 border-stone-200">
-
-                    <div>
-                        <h3 class="font-bold text-stone-600 mb-2">مشخصات خریدار و دستگاه:</h3>
-                        <div class="info-block-container">
-                            <p><strong class="info-label">مشتری:</strong> <span id="preview-customer-name">[نام مشتری]</span></p>
-                            <p><strong class="info-label">آدرس:</strong> <span id="preview-customer-address">[آدرس]</span></p>
-                            <p><strong class="info-label">تلفن:</strong> <span id="preview-customer-phone">[تلفن]</span></p>
-                            <p><strong class="info-label">دستگاه:</strong> <span id="preview-device-brand">[برند]</span> - <span id="preview-device-model">[مدل]</span></p>
-                        </div>
-                    </div>
-
-                    <h3 class="font-bold text-stone-600 mt-8 mb-2">شرح کالا و خدمات:</h3>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full">
-                            <thead>
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th class="w-2/5">شرح</th>
-                                    <th>تعداد</th>
-                                    <th>قیمت واحد (ریال)</th>
-                                    <th class="text-left">مبلغ کل (ریال)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="preview-items-body"></tbody>
-                        </table>
-                    </div>
-                    
-                    <div class="grid grid-cols-5 mt-6">
-                        <div class="col-span-3">
-                           <h3 class="font-bold text-stone-600 mb-2">توضیحات و شرایط:</h3>
-                           <div id="preview-notes" class="text-sm text-stone-600 whitespace-pre-wrap">[شرح تعمیرات]</div>
-                           <div id="preview-terms" class="text-sm text-stone-600 whitespace-pre-wrap mt-2">[شرایط پرداخت]</div>
-                           <div id="preview-warranty" class="text-sm text-stone-600 whitespace-pre-wrap mt-2">[گارانتی]</div>
-                        </div>
-                        <div class="col-span-2 text-left">
-                             <div class="space-y-2">
-                                <div class="flex justify-between items-center"><span class="font-medium text-stone-600">جمع کل:</span><span id="preview-subtotal" class="font-bold">۰</span></div>
-                                <div class="flex justify-between items-center"><span class="font-medium text-stone-600">تخفیف:</span><span id="preview-discount" class="font-bold">۰</span></div>
-                                <div class="flex justify-between items-center"><span class="font-medium text-stone-600">مالیات (۹٪):</span><span id="preview-tax" class="font-bold">۰</span></div>
-                                <hr class="my-2 border-stone-300">
-                                <div class="flex justify-between items-center text-lg"><span class="font-bold">مبلغ نهایی:</span><span id="preview-total" class="font-extrabold text-stone-800">۰</span></div>
-                                <div id="preview-total-words" class="text-xs text-stone-500 mt-1 text-center"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                     <div class="flex justify-around mt-20 pt-10 border-t border-dashed border-stone-300">
-                        <div class="text-center"><p class="mb-8">مهر و امضای فروشنده</p></div>
-                        <div class="text-center"><p class="mb-8">امضای مشتری</p></div>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="logo.png" alt="Logo" style="height: 40px;">
+                    کافی شاپ صنعتی
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">صفحه اصلی</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">فروشگاه</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">درباره ما</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">تماس با ما</a>
+                        </li>
+                    </ul>
+                    <div class="navbar-icons d-flex">
+                        <a href="#" class="nav-link"><i class="fas fa-search"></i></a>
+                        <a href="wishlist.html" class="nav-link"><i class="fas fa-heart"></i></a>
+                        <a href="cart.html" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
+                        <a href="#" class="nav-link"><i class="fas fa-user"></i></a>
                     </div>
                 </div>
-            </section>
+            </div>
+        </nav>
+    </header>
 
-            <!-- Form Column -->
-            <section id="form-container" class="lg:col-span-1">
-                <form id="invoice-form" onsubmit="return false;">
-                    <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">اطلاعات فروشنده</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="seller-name" class="form-input" placeholder="نام شرکت / تعمیرکار"><input type="text" id="seller-address" class="form-input" placeholder="آدرس"><input type="text" id="seller-phone" class="form-input" placeholder="تلفن"></div></div>
-                    <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">اطلاعات مشتری</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="customer-name" class="form-input" placeholder="نام مشتری / شرکت"><input type="text" id="customer-address" class="form-input" placeholder="آدرس"><input type="text" id="customer-phone" class="form-input" placeholder="تلفن تماس"></div></div>
-                    <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">مشخصات فاکتور و دستگاه</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="invoice-number" class="form-input" placeholder="شماره فاکتور"><input type="date" id="invoice-date" class="form-input"><input type="text" id="device-brand" class="form-input" placeholder="برند دستگاه"><input type="text" id="device-model" class="form-input" placeholder="مدل دستگاه"></div></div>
-                    <div class="form-section">
-                        <h3 class="font-bold text-lg mb-4 text-stone-700">کالاها و خدمات</h3>
-                        <div id="items-container" class="space-y-4"></div>
-                        <button type="button" id="add-item-btn" class="btn btn-secondary mt-4">افزودن ردیف +</button>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section text-white text-center" style="background: url('https://via.placeholder.com/1920x600.png?text=Industrial+Coffee+Makers') no-repeat center center; background-size: cover; padding: 100px 0;">
+            <div class="container">
+                <h1 class="display-4 fw-bold">بهترین قهوه سازهای صنعتی</h1>
+                <p class="lead">کیفیت و کارایی را به کافه خود هدیه دهید</p>
+                <a href="shop.html" class="btn btn-lg" style="background-color: #A0522D; color:white;">مشاهده محصولات</a>
+            </div>
+        </section>
+
+        <!-- Featured Categories -->
+        <section class="container my-5">
+            <h2 class="text-center mb-4">دسته‌بندی‌های محبوب</h2>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/300x200.png?text=Espresso+Machines" class="card-img-top" alt="Espresso Machines">
+                        <div class="card-body">
+                            <h5 class="card-title">اسپرسوسازها</h5>
+                            <a href="#" class="btn btn-sm" style="background-color: #8B4513; color:white;">مشاهده</a>
+                        </div>
                     </div>
-                    <div class="form-section"><h3 class="font-bold text-lg mb-4 text-stone-700">مبالغ و توضیحات</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="space-y-4"><label class="block"><span class="text-stone-600">تخفیف (ریال)</span><input type="number" id="discount-amount" class="form-input mt-1" placeholder="0" min="0"></label><label class="block"><span class="text-stone-600">مالیات بر ارزش افزوده (۹٪)</span><input type="checkbox" id="tax-checkbox" class="ml-2" checked></label></div><div class="space-y-4"><textarea id="notes" class="form-input h-20" placeholder="شرح تعمیرات انجام شده..."></textarea><textarea id="terms" class="form-input h-20" placeholder="شرایط پرداخت..."></textarea><textarea id="warranty" class="form-input h-20" placeholder="گارانتی خدمات..."></textarea></div></div></div>
-                </form>
-                <div id="actions-container" class="flex justify-end items-center gap-4">
-                     <button type="button" id="reset-btn" class="btn btn-secondary">بازنشانی فرم</button>
-                    <button type="button" id="print-btn" class="btn btn-primary">چاپ فاکتور</button>
                 </div>
-            </section>
-        </main>
-    </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/300x200.png?text=Grinders" class="card-img-top" alt="Grinders">
+                        <div class="card-body">
+                            <h5 class="card-title">آسیاب‌های قهوه</h5>
+                            <a href="#" class="btn btn-sm" style="background-color: #8B4513; color:white;">مشاهده</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/300x200.png?text=Accessories" class="card-img-top" alt="Accessories">
+                        <div class="card-body">
+                            <h5 class="card-title">لوازم جانبی</h5>
+                            <a href="#" class="btn btn-sm" style="background-color: #8B4513; color:white;">مشاهده</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- Featured Products -->
+        <section class="container my-5">
+             <h2 class="text-center mb-4">محصولات پرفروش</h2>
+             <div class="row">
+                <!-- Product Card 1 -->
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 product-card">
+                        <img src="https://via.placeholder.com/300x300.png?text=Product+1" class="card-img-top" alt="Product 1">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">قهوه ساز مدل X</h5>
+                            <p class="card-text">توضیح کوتاه در مورد این محصول.</p>
+                            <p class="fw-bold mt-auto">25,000,000 تومان</p>
+                            <div class="product-card-actions">
+                                <a href="product-single.html" class="btn btn-dark btn-sm">مشاهده جزئیات</a>
+                                <a href="#" class="btn btn-outline-dark btn-sm"><i class="fas fa-heart"></i></a>
+                                <a href="#" class="btn btn-outline-dark btn-sm"><i class="fas fa-chart-bar"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 2 -->
+                <div class="col-md-3 mb-4">
+                     <div class="card h-100 product-card">
+                        <img src="https://via.placeholder.com/300x300.png?text=Product+2" class="card-img-top" alt="Product 2">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">قهوه ساز مدل Y</h5>
+                            <p class="card-text">توضیح کوتاه در مورد این محصول.</p>
+                            <p class="fw-bold mt-auto">32,000,000 تومان</p>
+                             <div class="product-card-actions">
+                                <a href="product-single.html" class="btn btn-dark btn-sm">مشاهده جزئیات</a>
+                                <a href="#" class="btn btn-outline-dark btn-sm"><i class="fas fa-heart"></i></a>
+                                <a href="#" class="btn btn-outline-dark btn-sm"><i class="fas fa-chart-bar"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Product Card 3 -->
+                <div class="col-md-3 mb-4">
+                     <div class="card h-100 product-card">
+                        <img src="https://via.placeholder.com/300x300.png?text=Product+3" class="card-img-top" alt="Product 3">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">قهوه ساز مدل Z</h5>
+                            <p class="card-text">توضیح کوتاه در مورد این محصول.</p>
+                            <p class="fw-bold mt-auto">41,500,000 تومان</p>
+                             <div class="product-card-actions">
+                                <a href="product-single.html" class="btn btn-dark btn-sm">مشاهده جزئیات</a>
+                                <a href="#" class="btn btn-outline-dark btn-sm"><i class="fas fa-heart"></i></a>
+                                <a href="#" class="btn btn-outline-dark btn-sm"><i class="fas fa-chart-bar"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Product Card 4 -->
+                <div class="col-md-3 mb-4">
+                     <div class="card h-100 product-card">
+                        <img src="https://via.placeholder.com/300x300.png?text=Product+4" class="card-img-top" alt="Product 4">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">قهوه ساز مدل W</h5>
+                            <p class="card-text">توضیح کوتاه در مورد این محصول.</p>
+                            <p class="fw-bold mt-auto">18,000,000 تومان</p>
+                            <div class="product-card-actions">
+                                <a href="product-single.html" class="btn btn-dark btn-sm">مشاهده جزئیات</a>
+                                <a href="#" class="btn btn-outline-dark btn-sm"><i class="fas fa-heart"></i></a>
+                                <a href="#" class="btn btn-outline-dark btn-sm"><i class="fas fa-chart-bar"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="bg-light py-5">
+            <div class="container">
+                <h2 class="text-center mb-4">نظرات مشتریان</h2>
+                <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img src="https://via.placeholder.com/100x100.png?text=User+1" class="rounded-circle mb-3" alt="User 1">
+                                <p class="lead">"کیفیت دستگاه‌ها عالیه و پشتیبانیشون حرف نداره. واقعا راضی هستم."</p>
+                                <cite> - مدیر کافه ستاره</cite>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                             <div class="d-flex flex-column align-items-center text-center">
+                                <img src="https://via.placeholder.com/100x100.png?text=User+2" class="rounded-circle mb-3" alt="User 2">
+                                <p class="lead">"تنوع محصولاتتون خیلی خوبه و به راحتی تونستم دستگاه مورد نظرم رو پیدا کنم."</p>
+                                <cite> - باریستا کافه نادری</cite>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">درباره ما</h5>
+                    <p>
+                        ما بهترین و با کیفیت ترین قهوه ساز های صنعتی را برای کسب و کار شما فراهم می کنیم.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">لینک های سریع</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="#">سیاست حفظ حریم خصوصی</a></li>
+                        <li><a href="#">شرایط استفاده</a></li>
+                        <li><a href="#">سوالات متداول</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">تماس با ما</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt"></i> تهران، خیابان ولیعصر، کوچه دوم</li>
+                        <li><i class="fas fa-phone"></i> 021-12345678</li>
+                        <li><i class="fas fa-envelope"></i> info@example.com</li>
+                    </ul>
+                </div>
+                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase">خبرنامه</h5>
+                    <p>برای دریافت آخرین اخبار و تخفیف ها عضو شوید.</p>
+                    <form action="#">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="ایمیل شما" >
+                            <button class="btn btn-primary" type="button" style="background-color: #8B4513; border-color: #8B4513;">عضویت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 1403 تمام حقوق محفوظ است.
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
 </body>
 </html>

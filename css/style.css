@@ -1,0 +1,106 @@
+/* General Body Styles */
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+a {
+    color: #8B4513; /* SaddleBrown */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #A0522D; /* Sienna */
+}
+
+/* Navbar */
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #8B4513 !important;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+.navbar-icons .nav-link {
+    font-size: 1.2rem;
+}
+
+/* Footer */
+.footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 40px 0;
+}
+
+.footer h5 {
+    color: #fff;
+    border-bottom: 2px solid #8B4513;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.footer a {
+    color: #adb5bd;
+}
+
+.footer a:hover {
+    color: #fff;
+}
+
+/* Product Card */
+.product-card {
+    transition: box-shadow .3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+.product-card-actions {
+    opacity: 0;
+    transition: opacity .3s;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.product-card:hover .product-card-actions {
+    opacity: 1;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Testimonials */
+#testimonialCarousel .carousel-control-prev-icon,
+#testimonialCarousel .carousel-control-next-icon {
+    background-color: #8B4513;
+    border-radius: 50%;
+}
